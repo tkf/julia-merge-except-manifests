@@ -1,0 +1,14 @@
+name: Update Manifest.toml
+inputs:
+  base:
+    description:
+      The name of branch to be merged to `target`.
+    required: false
+    default: 'master'
+  target:
+    description:
+      The name of branch to which `base` is merged.
+runs:
+  using: docker
+  image: Dockerfile
+  args: ['${{ inputs.base }}', '${{ inputs.target }}']
