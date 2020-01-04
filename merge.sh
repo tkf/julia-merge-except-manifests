@@ -14,7 +14,10 @@ git checkout -B "$base" "origin/$base"
 git checkout -B "$target" "origin/$target"
 git merge --strategy=ours --no-commit "$base"
 git checkout "$base" -- .
-git ls-files | grep -F Manifest.toml | xargs git checkout "origin/$target" --
+git ls-tree -r --name-only "origin/$target" | grep -F Manifest.toml \
+    | xargs git checkout "origin/$target" --
+git ls-tree -r --name-only "origin/$target" | grep -F Manifest.toml \
+    | xargs git add -f --
 git add .
 git commit -m "Merge branch '$base'" || exit 0
 
