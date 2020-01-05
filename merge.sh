@@ -14,8 +14,11 @@ git_fetch_origin "refs/heads/$base:refs/remotes/origin/$base"
 git checkout -B "$base" "origin/$base"
 
 git_fetch_origin "refs/heads/$target:refs/remotes/origin/$target" || exit 0
-git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
-git config --global user.name "$GITHUB_ACTOR"
+if [ -n "$GITHUB_ACTOR" ]
+then
+    git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    git config --global user.name "$GITHUB_ACTOR"
+fi
 git checkout -B "$target" "origin/$target"
 git merge --strategy=ours --no-commit "$base"
 git checkout "$base" -- .
