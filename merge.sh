@@ -21,6 +21,7 @@ then
 fi
 git checkout -B "$target" "origin/$target"
 git merge --strategy=ours --no-commit "$base"
+find . -type d -name .git -prune -o -type f -print0 | xargs --null rm -rf
 git checkout "$base" -- .
 git ls-tree -r --name-only "origin/$target" | grep -F Manifest.toml \
     | xargs git checkout "origin/$target" --
