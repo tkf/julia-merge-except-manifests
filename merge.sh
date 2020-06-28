@@ -9,6 +9,8 @@ git_fetch_origin() {
 
 set -ex
 
+git branch
+
 # Checkout 'master' first; it seems create-pull-request expect this:
 git_fetch_origin "refs/heads/$base:refs/remotes/origin/$base" || true
 git checkout -B "$base" "origin/$base"
