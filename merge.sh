@@ -12,6 +12,7 @@ set -ex
 # Checkout 'master' first; it seems create-pull-request expect this:
 git_fetch_origin "refs/heads/$base:refs/remotes/origin/$base" || true
 git checkout -B "$base" "origin/$base"
+git branch
 
 git_fetch_origin "refs/heads/$target:refs/remotes/origin/$target" || true
 git log -n1 "origin/$target" || exit 0
