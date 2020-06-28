@@ -10,10 +10,11 @@ git_fetch_origin() {
 set -ex
 
 # Checkout 'master' first; it seems create-pull-request expect this:
-git_fetch_origin "refs/heads/$base:refs/remotes/origin/$base"
+git_fetch_origin "refs/heads/$base:refs/remotes/origin/$base" || true
 git checkout -B "$base" "origin/$base"
 
-git_fetch_origin "refs/heads/$target:refs/remotes/origin/$target" || exit 0
+git_fetch_origin "refs/heads/$target:refs/remotes/origin/$target" || true
+git log -n1 "origin/$target" || exit 0
 if [ -n "$GITHUB_ACTOR" ]
 then
     git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
